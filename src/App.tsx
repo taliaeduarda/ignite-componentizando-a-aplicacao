@@ -1,17 +1,20 @@
-import { MoviesProvider } from "./components/hooks/useMovies";
+import { useState } from 'react'; 
+import { SideBar } from './components/SideBar';
+import { Content } from './components/Content';
 
-import { SideBar } from "./components/SideBar";
-import { Content } from "./components/Content";
-
-import "./styles/global.scss";
+import './styles/global.scss';
 
 export function App() {
+  const [selectedGenreId, setSelectedGenreId] = useState(1);
+
+  function handleClickButton(id: number) {
+    setSelectedGenreId(id);
+  }
+
   return (
-    <div className="containerBody">
-      <MoviesProvider>
-        <SideBar />
-        <Content />
-      </MoviesProvider>
+    <div style={{ display: 'flex', flexDirection: 'row' }}>
+      <SideBar onSelectedGenreId={selectedGenreId} onHandleClickButton={handleClickButton} />
+      <Content onSelectedGenreId={selectedGenreId} />
     </div>
-  );
+  )
 }
